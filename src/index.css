@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/* 1. 폰트 불러오기 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+/* 💡 Noto Serif KR와 Cormorant(300~700)를 통합하여 불러옵니다. */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Cormorant:wght@300;400;500;600;700&display=swap');
+
+/* 2. 테마 정의 (컬러 변수 및 애니메이션) */
+@theme {
+  --font-serif: "Noto Serif KR", serif;
+  --font-sans: "Pretendard", sans-serif;
+  /* 💡 Cormorant 변수 등록 */
+  --font-cormorant: "Cormorant", serif;
+
+  /* 컬러 정의 */
+  --color-black: #333333;
+  --color-negative: #8D3333;
+  --color-orange: #F5DCC5;
+  --color-red: #E43030;
+
+  /* 알파(투명도) 컬러 */
+  --color-white10: rgba(255, 255, 255, 0.1);
+  --color-white20: rgba(255, 255, 255, 0.2);
+  --color-white40: rgba(255, 255, 255, 0.4);
+  --color-white80: rgba(255, 255, 255, 0.8);
+  --color-white90: rgba(255, 255, 255, 0.9);
+  
+  --color-black20: rgba(0, 0, 0, 0.2);
+  --color-black40: rgba(0, 0, 0, 0.4);
+  --color-black60: rgba(0, 0, 0, 0.6);
+  --color-black80: rgba(0, 0, 0, 0.8);
+
+  /* 브랜드 컬러 시스템 */
+  --color-beige-01: #FCF2E8; --color-beige-02: #FBF6F2; --color-beige-03: #F5F3EA;
+  --color-gray-100: #F8F8F8; --color-gray-200: #DCDCDC; --color-gray-300: #CBCBCB; --color-gray-400: #A8A8A8; --color-gray-500: #6B6B6B;
+  --color-blue-100: #ECF7FF; --color-blue-200: #749FA5; --color-blue-300: #3B6C8D; --color-blue-400: #597F84; --color-blue-500: #2F5256;
+  --color-brown-100: #F5F3EF; --color-brown-200: #CAC19F; --color-brown-300: #664628;
+  --color-positive-100: #7BC333; --color-positive-200: #608D33;
+  --color-pink-100: #FCF2E8; --color-pink-200: #DD107F;
+
+  /* 슬라이더 애니메이션 */
+  --animate-progress: progress 5s linear forwards;
+  @keyframes progress {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+}
+
+/* 3. 유틸리티 스타일 통합 */
+@layer utilities {
+  
+  /* 💡 이미지 1번 가이드: Cormorant Light 36px */
+  .text-eng-title-lg {
+    font-family: var(--font-cormorant);
+    font-size: 24px;       /* 이미지에 적힌 36 반영 */
+    font-weight: 300;     /* Light 반영 */
+    line-height: 1.2;     /* 120% 반영 */
+    letter-spacing: 0;    /* 0% 반영 */
+    color: var(--color-black);
+  }
+
+  /* 💡 이미지 2, 3번 가이드: Cormorant Light 24px */
+  .text-eng-title-sm {
+    font-family: var(--font-cormorant);
+    font-size: 16px;       /* 이미지에 적힌 24 반영 */
+    font-weight: 300;     /* Light 반영 */
+    line-height: 1.2;     /* 120% 반영 */
+    letter-spacing: 0;    /* 0% 반영 */
+    color: var(--color-black);
+  }
+
+  /* [공통 섹션 타이틀 - About에서 사용] */
+  .text-section-title {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-black);
+    text-transform: capitalize;
+  }
+
+  /* [공통 섹션 설명글 - About에서 사용] */
+  .text-section-desc {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--color-gray-500);
+  }
+
+  /* [기존 슬라이더 및 네비게이션 스타일 유지] */
+  .text-slider-sub {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 400;
+    @apply uppercase opacity-80;
+  }
+
+  .text-slider-main {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  .font-nav {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    @apply flex items-center justify-center transition-all cursor-pointer;
+  }
+  .font-nav:hover { font-weight: 700; }
+
+  /* [모바일/서브메뉴 전용 스타일 추가] */
+  .ds-menu-title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-black);
+    text-transform: none;
+  }
+
+  .ds-submenu-list {
+    @apply flex flex-col;
+  }
+
+  .ds-submenu-item {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-gray-500);
+    transition: all 0.3s;
+  }
+
+  .ds-submenu-item:hover {
+    color: var(--color-black);
+    font-weight: 600;
+  }
+
+  /* [버튼 시스템] */
+  .btn-base {
+    @apply flex items-center justify-center rounded-full border transition-all;
+    height: 48px;
+    padding: 0 40px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-header-top {
+    border-color: #ffffff;
+    background-color: var(--color-white40);
+    color: #ffffff;
+  }
+
+  .btn-header-scrolled {
+    border-color: var(--color-black20);
+    background-color: var(--color-black40);
+    color: #ffffff;
+  }
+
+  /* [기타 기능] */
+  .bg-vignette {
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 100%);
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0.8; transform: scale(1.02); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .text-banner-desc {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: 0;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+  }
+}
