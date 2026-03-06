@@ -15,19 +15,17 @@ const Footer = ({ data }) => {
 
   /**
    * 💡 데이터 경로 재설정
-   * pensionService에서 리턴한 객체 구조를 하나씩 확인하며 변수를 할당합니다.
-   * 서비스에서 footerInfo로 묶었으므로 해당 경로를 최우선으로 찾습니다.
    */
-  const f = data.footerInfo || data.baseInfo || data; // 여러 경로 대응
+  const f = data.footerInfo || data.baseInfo || data; 
   const h = data.headerInfo || data;
 
-  // 개별 변수 매핑 (데이터가 없을 경우를 대비해 빈 문자열 처리)
+  // 개별 변수 매핑
   const pensionName = f.pensionName || "";
   const fullAddress = f.fullAddress || "";
   const tel = f.tel || "";
   const account = f.account || "";
   
-  // 사업자 정보 (bizInfo 객체 내부 확인)
+  // 사업자 정보
   const bizNumber = f.bizInfo?.number || f.bizNumber || "";
   const ceo = f.bizInfo?.ceo || f.ceo || "";
   const farm = f.bizInfo?.farm || f.farm || "";
@@ -37,6 +35,17 @@ const Footer = ({ data }) => {
   const booking = f.bookingLinks || f.booking || {};
 
   const btnClass = "h-10 px-7 flex items-center justify-center rounded-full border border-white/20 text-[12px] font-sans tracking-widest hover:bg-white hover:text-black transition-all duration-300";
+
+  /**
+   * 🚀 최상단 이동 함수
+   * 클릭 시 브라우저 화면을 좌표 0,0(맨 위)으로 부드럽게 이동시킵니다.
+   */
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <footer className="w-full bg-[#1A1A1A] text-white py-20 font-sans border-t border-white/10">
@@ -56,9 +65,13 @@ const Footer = ({ data }) => {
           </div>
         </InfoSection>
 
-        {/* 2. CENTER: LOGO & COPYRIGHT */}
+        {/* 2. CENTER: LOGO & COPYRIGHT (클릭 이벤트 추가됨) */}
         <div className="flex flex-col items-center justify-center border-y md:border-y-0 md:border-x border-white/10 py-16 min-h-[240px]">
-          <div className="mb-10">
+          <div 
+            className="mb-10 cursor-pointer hover:opacity-70 transition-all duration-300 active:scale-95" 
+            onClick={scrollToTop}
+            title="맨 위로 이동"
+          >
             {logo ? (
               <img src={logo} alt="Logo" className="max-h-12 object-contain brightness-0 invert opacity-90" />
             ) : (
