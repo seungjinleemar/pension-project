@@ -71,7 +71,11 @@ export const pensionService = {
           bottomText: m.sector?.sub?.firstLine || "" 
         })) || [],
 
-        aboutData: a ? { imageUrl: a.imgList?.[0]?.img_URL, description: a.sector?.thirdLine } : null,
+        aboutData: a ? { 
+          imageUrl: a.imgList?.[0]?.img_URL, 
+          description: a.sector?.thirdLine,
+          calendarURL: totalCalendarURL // 여기에 추가
+        } : null,
         
         bannerData: b ? { 
           image_url: b.imgList?.[0]?.img_URL, 

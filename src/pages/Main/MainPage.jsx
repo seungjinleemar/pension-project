@@ -23,6 +23,7 @@ const MainPage = ({ co_id, data }) => {
         <About 
           imageUrl={data.aboutData.imageUrl} 
           description={data.aboutData.description} 
+          calendarURL={data.aboutData.calendarURL}
         />
       )}
 

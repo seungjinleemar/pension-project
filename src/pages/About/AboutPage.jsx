@@ -29,6 +29,7 @@ const AboutPage = ({ co_id, data }) => {
           title="About Us"
           imageUrl={aboutData.imageUrl} 
           description={aboutData.description} 
+          calendarURL={data.aboutData.calendarURL}
         />
       )}
 
