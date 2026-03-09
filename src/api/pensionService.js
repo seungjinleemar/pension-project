@@ -61,6 +61,7 @@ export const pensionService = {
       };
 
       return {
+        co_id,
         headerInfo,
         footerInfo,
         navigation: headerInfo.navigation, 
