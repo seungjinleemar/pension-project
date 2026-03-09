@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LinkButton from './LinkButton';
 
 const SpecialItem = ({ item, isReverse, co_id }) => {
   const [isVisible, setIsVisible] = useState(false);
   const itemRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,6 +24,18 @@ const SpecialItem = ({ item, isReverse, co_id }) => {
   const mainImg = item.images?.[0] || "";
   const subImg = item.images?.[1] || mainImg;
 
+  // 💡 수정된 클릭 이벤트 핸들러
+  const handleMove = () => {
+    if (item.link) {
+      // 데이터에 특정 커스텀 링크가 있는 경우 해당 경로로 이동
+      navigate(item.link);
+    } else {
+      // App.js의 <Route path="/special/:id" /> 설정에 맞춰 경로 생성
+      // 결과: /special/huttopia
+      navigate(`/special/${co_id}`);
+    }
+  };
+
   return (
     <div ref={itemRef} className="flex flex-col w-full">
       {/* 1. 이미지 영역 */}
@@ -30,11 +44,11 @@ const SpecialItem = ({ item, isReverse, co_id }) => {
       } ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-[1.02]'}`}>
         
         <div className="w-full md:flex-1 aspect-[328/248] md:aspect-auto md:h-[584px] overflow-hidden bg-gray-100">
-          {mainImg && <img src={mainImg} alt="" className="w-full h-full object-cover" />}
+          {mainImg && <img src={mainImg} alt={item.title} className="w-full h-full object-cover" />}
         </div>
         
         <div className="hidden md:block w-[520px] h-[584px] overflow-hidden shrink-0 bg-gray-50">
-          {subImg && <img src={subImg} alt="" className="w-full h-full object-cover" />}
+          {subImg && <img src={subImg} alt={item.title} className="w-full h-full object-cover" />}
         </div>
       </div>
 
@@ -61,15 +75,7 @@ const SpecialItem = ({ item, isReverse, co_id }) => {
         <div className="mt-[24px]">
           <LinkButton 
             text="MoreView" 
-            onClick={() => {
-              // 💡 룸페이지에서 전달한 item.link가 있으면 해당 경로로 이동
-              if (item.link) {
-                window.location.href = item.link;
-              } else {
-                // 기본값: 스페셜 페이지로 이동
-                window.location.href = `/${co_id}/special`;
-              }
-            }} 
+            onClick={handleMove} 
           />
         </div>
       </div>
