@@ -12,7 +12,7 @@ import { pensionService } from "./api/pensionService";
 const Loading = () => <div className="flex h-screen items-center justify-center font-bold">로딩 중...</div>;
 
 function App() {
-  const CO_ID = "huttopia"; 
+  const CO_ID = "staykkory"; 
   const [mainData, setMainData] = useState(null);
   const [loading, setLoading] = useState(true);
 
